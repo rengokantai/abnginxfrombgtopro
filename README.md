@@ -58,6 +58,22 @@ You can add your password now:
 sh -c "openssl passwd -apr1 >> /etc/nginx/.pwd"
 ```
 
+put in configuration file
+```
+server {
+    listen       80;
+    server_name  localhost;
+    listen 443 ssl;
+    ssl_certificate /etc/nginx/ssl/cert.crt;
+    ssl_certificate_key /etc/nginx/ssl/private.key;
+    location / {
+        root   /usr/share/nginx/html;
+        index  index.html index.htm;
+        auth_basic "Authentication Required";
+        auth_basic_user_file /etc/nginx/.pwd;
+    }
+}
+```
 
 ##11. Upgrading and Migrating
 ```
